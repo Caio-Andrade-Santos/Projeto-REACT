@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>🚚 Sistema de Gerenciamento de Frota</h1>
+      <h1>Sistema de Gerenciamento de Frota</h1>
 
       {pagina === "menu" && (
         <div className="menu">
