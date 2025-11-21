@@ -1,148 +1,72 @@
-/* ======== ESTILO GERAL ======== */
-body {
+/* Fundo geral */
+body, html {
   margin: 0;
   padding: 0;
-  background-color: #0a1826;
-  font-family: "Inter", sans-serif;
-  color: white;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #0f1e2c, #0b1825);
+  font-family: Arial, sans-serif;
 }
 
-h1 {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 32px;
-  color: #ffffff;
-}
-
-p {
-  color: #000000;
-}
-
-/* ======== MENU PRINCIPAL ======== */
-.menu {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 40px;
-  gap: 15px;
-}
-
-.menu button {
-  width: 280px;
-  padding: 15px;
-  background-color: #0d6efd;
-  border: none;
-  border-radius: 14px;
-  color: white;
-  cursor: pointer;
-  font-size: 18px;
+/* Container central */
+.container {
+  width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  transition: 0.2s ease;
 }
 
-.menu button:hover {
-  background-color: #0b5ed7;
-  box-shadow: 0 0 12px rgba(13, 110, 253, 0.7);
-  transform: scale(1.05);
-}
-
-/* ======== ÁREA DAS LISTAS E FORMULÁRIOS ======== */
-.lista-veiculos {
-  width: 60%;
-  margin: 30px auto;
-  background: #112333;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
-}
-
-/* Cada item da lista */
-.lista-item {
-  background: #000000;
-  padding: 12px;
-  border-radius: 10px;
-  margin-bottom: 12px;
-  color: #1a1a1a;
+/* Card do login */
+.loginForm {
+  background: #112233;
+  padding: 30px;
+  border-radius: 12px;
+  width: 350px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 600;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
 
-/* Botão dentro da lista */
-.lista-item button {
-  background-color: #0d6efd;
-  color: rgb(255, 255, 255);
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.lista-item button:hover {
-  transform: scale(1.05);
-  background-color: #0a58ca;
-}
-
-/* ======== BOTÃO VOLTAR ======== */
-.voltar {
-  display: block;
-  margin: 20px auto;
-  padding: 12px 20px;
-  background-color: #1f6feb;
-  border: none;
-  border-radius: 10px;
+/* Título */
+.loginForm h2 {
   color: white;
-  cursor: pointer;
-  font-size: 18px;
-  transition: 0.2s;
+  margin: 0;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-.voltar:hover {
-  background-color: #1653b8;
-  transform: scale(1.05);
-  box-shadow: 0 0 10px #1f6feb;
-}
-
-/* ======== FORMULÁRIOS ======== */
-input {
-  width: 100%;
+/* Inputs */
+.loginForm input {
   padding: 12px;
-  margin-top: 10px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: none;
   outline: none;
   font-size: 16px;
 }
 
-form button {
-  margin-top: 15px;
-  background-color: #198754;
+/* Botão */
+.loginForm button {
+  background-color: #1e90ff;
   border: none;
   padding: 12px;
-  width: 100%;
-  border-radius: 10px;
+  border-radius: 8px;
   color: white;
-  font-size: 18px;
+  font-weight: bold;
+  font-size: 16px;
   cursor: pointer;
   transition: 0.2s;
 }
 
-form button:hover {
-  background-color: #157347;
-  transform: scale(1.03);
+.loginForm button:hover {
+  background-color: #1878d6;
 }
 
-/* Botão cancelar */
-.cancelar {
-  background-color: #dc3545 !important;
-  margin-top: 10px;
-}
-
-.cancelar:hover {
-  background-color: #bb2d3b !important;
+/* Mensagem */
+.msg {
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  min-height: 18px;
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Login.css";
 
-export default function Login() {
+export default function Login({ onLoginSuccess }) {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
@@ -11,9 +11,10 @@ export default function Login() {
 
     if (user === "admin" && password === "1234") {
       setMsg("Login realizado com sucesso!");
+
       setTimeout(() => {
-        window.location.href = "/home";
-      }, 1000);
+        onLoginSuccess(); // <-- chama o App
+      }, 800);
     } else {
       setMsg("Usuário ou senha incorretos!");
     }
@@ -24,16 +25,16 @@ export default function Login() {
       <form className="loginForm" onSubmit={handleLogin}>
         <h2>Login</h2>
 
-        <input 
-          type="text" 
+        <input
+          type="text"
           placeholder="Usuário"
           value={user}
           onChange={(e) => setUser(e.target.value)}
           required
         />
 
-        <input 
-          type="password" 
+        <input
+          type="password"
           placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

@@ -1,48 +1,115 @@
+/* ==== FUNDO DO SITE ==== */
 body {
-  background: #222;
   margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #0f1e2c, #10243f);
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: white;
 }
 
+/* ==== CONTAINER CENTRAL ==== */
 .container {
-  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 40px;
 }
 
-.loginForm {
-  background: white;
-  padding: 40px;
-  border-radius: 15px;
-  width: 300px;
+/* ==== CAIXA DE FORM ==== */
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 30px;
+  width: 500px;
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* ==== TÍTULO ==== */
+.card h2 {
   text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  letter-spacing: 1px;
 }
 
-input {
+/* ==== INPUTS ==== */
+.card input,
+.card select {
   width: 100%;
-  margin-bottom: 12px;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #aaa;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
   border: none;
-  background: #4CAF50;
-  color: white;
+  outline: none;
+  font-size: 15px;
+}
+
+/* ==== BOTÃO PADRÃO ==== */
+.btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 10px;
+  border: none;
+  background-color: #3ba55c;
+  font-size: 17px;
   font-weight: bold;
   cursor: pointer;
-  border-radius: 6px;
+  transition: 0.3s;
+  color: white;
 }
 
-button:hover {
-  background: #45a049;
+.btn:hover {
+  background-color: #2e8a4b;
 }
 
-.msg {
-  margin-top: 12px;
-  color: red;
-  font-weight: bold;
+/* ==== BOTÃO MENU ==== */
+.menu button {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  background-color: #1f6feb;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.menu button:hover {
+  background-color: #1656b5;
+}
+
+/* ==== LISTA DE VEÍCULOS ==== */
+.lista-veiculos {
+  background: rgba(255, 255, 255, 0.20);
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.lista-item {
+  background-color: white;
+  color: black;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.voltar {
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  background-color: #a61d24;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.voltar:hover {
+  background-color: #82161c;
 }

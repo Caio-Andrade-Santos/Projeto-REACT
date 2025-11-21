@@ -4,7 +4,7 @@ import AddVeiculo from "./components/AddVeiculo";
 import ListaVeiculos from "./components/ListaVeiculos";
 import EditarVeiculo from "./components/EditarVeiculo";
 
-function App() {
+export default function App() {
   const [veiculos, setVeiculos] = useState([
     { id: 1, modelo: "Caminhão Baú", placa: "ABC-1234" },
     { id: 2, modelo: "Carreta", placa: "XYZ-5678" },
@@ -13,7 +13,7 @@ function App() {
   const [pagina, setPagina] = useState("menu");
   const [editando, setEditando] = useState(null);
 
-  const salvarEdicao = (veiculoAtualizado) => {
+  function salvarEdicao(veiculoAtualizado) {
     setVeiculos(
       veiculos.map((v) =>
         v.id === veiculoAtualizado.id ? veiculoAtualizado : v
@@ -21,93 +21,78 @@ function App() {
     );
     setEditando(null);
     setPagina("menu");
-  };
+  }
 
   return (
     <div style={{ padding: 20 }}>
       <h1>Sistema de Gerenciamento de Frota</h1>
 
+      {/* Menu principal */}
       {pagina === "menu" && (
         <div className="menu">
-          <button onClick={() => setPagina("listar")}>
-            📋 Listar Veículos
-          </button>
-          <button onClick={() => setPagina("adicionar")}>
-            ➕ Adicionar Veículo
-          </button>
+          <button onClick={() => setPagina("listar")}>📋 Listar Veículos</button>
+          <button onClick={() => setPagina("adicionar")}>➕ Adicionar Veículo</button>
           <button onClick={() => setPagina("editar")}>✏️ Editar Veículo</button>
-          <button onClick={() => setPagina("excluir")}>
-            ❌ Excluir Veículo
-          </button>
+          <button onClick={() => setPagina("excluir")}>❌ Excluir Veículo</button>
         </div>
       )}
 
+      {/* Listar Veículos */}
       {pagina === "listar" && (
         <>
-          <div className="lista-veiculos">
-            <ListaVeiculos veiculos={veiculos} setVeiculos={setVeiculos} />
-          </div>
+          <ListaVeiculos veiculos={veiculos} setVeiculos={setVeiculos} />
           <button className="voltar" onClick={() => setPagina("menu")}>
-            ⬅️ Voltar ao Menu
+            ⬅️ Voltar
           </button>
         </>
       )}
 
+      {/* Adicionar Veículo */}
       {pagina === "adicionar" && (
         <>
-          <div className="lista-veiculos">
-            <AddVeiculo veiculos={veiculos} setVeiculos={setVeiculos} />
-          </div>
+          <AddVeiculo veiculos={veiculos} setVeiculos={setVeiculos} />
           <button className="voltar" onClick={() => setPagina("menu")}>
-            ⬅️ Voltar ao Menu
+            ⬅️ Voltar
           </button>
         </>
       )}
 
+      {/* Editar Veículo */}
       {pagina === "editar" && (
         <>
-          <div className="lista-veiculos">
-            {!editando ? (
-              <>
-                <h2 style={{color : "white"}}>Selecione um veículo para editar:</h2>
-                {veiculos.map((v) => (
-                  <div style={{backgroundColor : "white"}} key={v.id} className="lista-item">
-                    {v.modelo} - {v.placa}
-                    <button
-                      style={{ marginLeft: "10px", backgroundColor: "#1976d2" }}
-                      onClick={() => setEditando(v)}
-                    >
-                      Editar
-                    </button>
-                  </div>
-                ))}
-              </>
-            ) : (
-              <EditarVeiculo
-                veiculo={editando}
-                onSalvar={salvarEdicao}
-                onCancelar={() => setEditando(null)}
-              />
-            )}
-          </div>
+          {!editando ? (
+            <>
+              <h2>Selecione um veículo para editar:</h2>
+              {veiculos.map((v) => (
+                <div key={v.id} className="lista-item">
+                  {v.modelo} - {v.placa}
+                  <button onClick={() => setEditando(v)}>Editar</button>
+                </div>
+              ))}
+            </>
+          ) : (
+            <EditarVeiculo
+              veiculo={editando}
+              onSalvar={salvarEdicao}
+              onCancelar={() => setEditando(null)}
+            />
+          )}
+
           <button className="voltar" onClick={() => setPagina("menu")}>
-            ⬅️ Voltar ao Menu
+            ⬅️ Voltar
           </button>
         </>
       )}
 
+      {/* Excluir */}
       {pagina === "excluir" && (
         <>
-          <div className="lista-veiculos">
-            <ListaVeiculos veiculos={veiculos} setVeiculos={setVeiculos} />
-          </div>
+          <ListaVeiculos veiculos={veiculos} setVeiculos={setVeiculos} />
           <button className="voltar" onClick={() => setPagina("menu")}>
-            ⬅️ Voltar ao Menu
+            ⬅️ Voltar
           </button>
         </>
       )}
     </div>
   );
 }
-
-export default App;

@@ -1,10 +1,25 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { StrictMode, useState } from "react";
+import { createRoot } from "react-dom/client";
 
-createRoot(document.getElementById('root')).render(
+import App from "./App.jsx";
+import Login from "./pages/login.jsx";
+
+function Main() {
+  const [logado, setLogado] = useState(false);
+
+  function loginRealizado() {
+    setLogado(true);
+  }
+
+  return (
+    <>
+      {logado ? <App /> : <Login onLoginSuccess={loginRealizado} />}
+    </>
+  );
+}
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <Main />
+  </StrictMode>
+);
