@@ -6,8 +6,7 @@ function AddVeiculo({ veiculos, setVeiculos }) {
   const [placa, setPlaca] = useState("");
   const [tipo, setTipo] = useState("");
   const [ano, setAno] = useState("");
-
-  const [mensagem, setMensagem] = useState(""); // <-- ADICIONADO
+  const [mensagem, setMensagem] = useState("");
 
   const adicionar = () => {
     const novo = new Veiculo(
@@ -19,10 +18,8 @@ function AddVeiculo({ veiculos, setVeiculos }) {
 
     setVeiculos([...veiculos, novo]);
 
-    // --- MENSAGEM DE SUCESSO ---
     setMensagem("Veículo adicionado com sucesso!");
     setTimeout(() => setMensagem(""), 3000);
-    // ----------------------------
 
     setModelo("");
     setPlaca("");
@@ -31,11 +28,12 @@ function AddVeiculo({ veiculos, setVeiculos }) {
   };
 
   return (
-    <div>
-      <h2 style={{color : "white"}}>Adicionar Veículo</h2>
+    <div className="add-container">
+      <h2 className="add-titulo">Adicionar Veículo</h2>
 
       <input
         type="text"
+        className="add-input"
         placeholder="Modelo"
         value={modelo}
         onChange={(e) => setModelo(e.target.value)}
@@ -43,6 +41,7 @@ function AddVeiculo({ veiculos, setVeiculos }) {
 
       <input
         type="text"
+        className="add-input"
         placeholder="Placa"
         value={placa}
         onChange={(e) => setPlaca(e.target.value)}
@@ -50,6 +49,7 @@ function AddVeiculo({ veiculos, setVeiculos }) {
 
       <input
         type="text"
+        className="add-input"
         placeholder="Tipo"
         value={tipo}
         onChange={(e) => setTipo(e.target.value)}
@@ -57,17 +57,17 @@ function AddVeiculo({ veiculos, setVeiculos }) {
 
       <input
         type="number"
+        className="add-input"
         placeholder="Ano"
         value={ano}
         onChange={(e) => setAno(e.target.value)}
       />
 
-      <button onClick={adicionar}>Adicionar</button>
+      <button className="add-botao" onClick={adicionar}>
+        Adicionar
+      </button>
 
-      {/* EXIBE A MENSAGEM */}
-      {mensagem && (
-        <p style={{ color: "white", marginTop: "10px" }}>{mensagem}</p>
-      )}
+      {mensagem && <p className="add-sucesso">{mensagem}</p>}
     </div>
   );
 }

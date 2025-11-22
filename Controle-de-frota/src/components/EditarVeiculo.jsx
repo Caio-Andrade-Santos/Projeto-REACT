@@ -13,22 +13,22 @@ function EditarVeiculo({ veiculo, onSalvar, onCancelar }) {
   };
 
   return (
-    <div style={{ marginTop: 20 }}>
+    <div className="add-container">
       <h3 style={{color : "white"}}>✏️ Editar Veículo</h3>
-      <input
+      <input className="add-input"
         type="text"
         value={modelo}
         onChange={(e) => setModelo(e.target.value)}
         placeholder="Modelo"
       />
-      <input
+      <input className="add-input"
         type="text"
         value={placa}
         onChange={(e) => setPlaca(e.target.value)}
         placeholder="Placa"
       />
-      <button onClick={salvar}>Salvar</button>
-      <button onClick={onCancelar} style={{ marginLeft: 10 }}>
+      <button onClick={salvar} className="add-botao">Salvar</button>
+      <button onClick={onCancelar} className="add-botao" style={{backgroundColor: "rgb(255, 145, 77)"}}>
         Cancelar
       </button>
     </div>

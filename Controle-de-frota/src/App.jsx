@@ -42,7 +42,7 @@ export default function App() {
         <>
           <ListaVeiculos veiculos={veiculos} setVeiculos={setVeiculos} />
           <button className="voltar" onClick={() => setPagina("menu")}>
-            ⬅️ Voltar
+            Voltar
           </button>
         </>
       )}
@@ -52,7 +52,7 @@ export default function App() {
         <>
           <AddVeiculo veiculos={veiculos} setVeiculos={setVeiculos} />
           <button className="voltar" onClick={() => setPagina("menu")}>
-            ⬅️ Voltar
+            Voltar
           </button>
         </>
       )}
@@ -79,7 +79,7 @@ export default function App() {
           )}
 
           <button className="voltar" onClick={() => setPagina("menu")}>
-            ⬅️ Voltar
+            Voltar
           </button>
         </>
       )}
@@ -89,7 +89,7 @@ export default function App() {
         <>
           <ListaVeiculos veiculos={veiculos} setVeiculos={setVeiculos} />
           <button className="voltar" onClick={() => setPagina("menu")}>
-            ⬅️ Voltar
+            Voltar
           </button>
         </>
       )}

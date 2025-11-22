@@ -1,72 +1,292 @@
-/* Fundo geral */
-body, html {
+html,
+body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, #0f1e2c, #0b1825);
-  font-family: Arial, sans-serif;
 }
 
-/* Container central */
-.container {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* ======== ESTILO GERAL ======== */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #0a0f24, #1b2a4a);
+  font-family: "Inter", sans-serif;
+  color: #f5f5f5;
 }
 
-/* Card do login */
-.loginForm {
-  background: #112233;
-  padding: 30px;
-  border-radius: 12px;
-  width: 350px;
+h1 {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-shadow: 0px 0px 10px rgba(0, 140, 255, 0.4);
+}
+
+/* ======== CONTAINER PRINCIPAL ======== */
+div {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* ======== MENU ======== */
+.menu {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  margin-top: 40px;
+  align-items: center;
 }
 
-/* Título */
-.loginForm h2 {
+.menu button {
+  width: 70%;
+  padding: 15px;
+  font-size: 18px;
+  background: #0f4c81;
   color: white;
-  margin: 0;
-  margin-bottom: 10px;
-  text-align: center;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(0, 140, 255, 0.25);
 }
 
-/* Inputs */
-.loginForm input {
-  padding: 12px;
+.menu button:hover {
+  background: #1466b8;
+  transform: scale(1.05);
+  box-shadow: 0px 6px 14px rgba(0, 140, 255, 0.35);
+}
+
+/* ======== LISTA DE VEÍCULOS ======== */
+.lista-item {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 15px;
+  margin: 12px 0;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.2s ease;
+}
+
+.lista-item:hover {
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Botão dentro da lista */
+.lista-item button {
+  background: #ff914d;
+  color: #fff;
+  padding: 8px 14px;
   border-radius: 8px;
+  font-size: 14px;
+  border: none;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.lista-item button:hover {
+  background: #ff7320;
+  transform: scale(1.06);
+}
+
+/* ======== FORMULÁRIOS ======== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+input {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 10px;
   border: none;
   outline: none;
-  font-size: 16px;
-}
-
-/* Botão */
-.loginForm button {
-  background-color: #1e90ff;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
   color: white;
-  font-weight: bold;
-  font-size: 16px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+input::placeholder {
+  color: #cccccc;
+}
+
+form button {
+  padding: 12px;
+  background: #00c853;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.3s ease;
 }
 
-.loginForm button:hover {
-  background-color: #1878d6;
+form button:hover {
+  background: #00e676;
+  transform: scale(1.04);
 }
 
-/* Mensagem */
-.msg {
+/* ======== BOTÃO VOLTAR ======== */
+.voltar {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: #ff1744;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.voltar:hover {
+  background: #ff4569;
+  transform: scale(1.05);
+}
+
+/* ======== ANIMAÇÃO DE APARIÇÃO ======== */
+* {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ======== CONTAINER PRINCIPAL DO FORM ======== */
+.add-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 450px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+
+  animation: fadeIn 0.5s ease;
+}
+
+/* ======== TÍTULO ======== */
+.add-titulo {
   color: white;
   text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 600;
+  text-shadow: 0px 0px 6px rgba(0, 140, 255, 0.4);
+}
+
+/* ======== INPUTS ======== */
+.add-input {
+  width: 80%;
+  padding: 12px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: white;
+
+  border-radius: 12px;
+  border: none;
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+
+  transition: 0.2s ease;
+}
+
+.add-input::placeholder {
+  color: #cfcfcf;
+}
+
+.add-input:focus {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ======== BOTÃO ======== */
+.add-botao {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+
+  background: #00c853;
+  color: white;
+
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  transition: 0.25s ease;
+  box-shadow: 0px 4px 10px rgba(0, 255, 140, 0.25);
+}
+
+.add-botao:hover {
+  background: #00e676;
+  transform: scale(1.05);
+}
+
+.add-botaored {
+  background: red;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
   font-size: 14px;
-  min-height: 18px;
+  border: none;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.add-botaored:hover {
+  background: #ff3b3b;
+  transform: scale(1.06);
+}
+
+/* ======== MENSAGEM DE SUCESSO ======== */
+.add-sucesso {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+
+  color: #00e676;
+  animation: fadeIn 0.4s ease;
+}
+
+/* ======== ANIMAÇÃO ======== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
