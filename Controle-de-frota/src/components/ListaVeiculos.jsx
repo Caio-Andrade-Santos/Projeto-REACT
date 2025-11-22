@@ -9,9 +9,9 @@ function ListaVeiculos({ veiculos, setVeiculos }) {
 
   return (
     <div>
-      <h2 className="lista-item">📋 Lista de Veículos</h2>
+      <h2 className="lista-item_ListaVeiculos">📋 Lista de Veículos</h2>
       {veiculos.map((v) => (
-        <div className="lista-item"
+        <div className="lista-item_ListaVeiculos"
           key={v.id}
           style={{
             margin: "10px 0",
@@ -24,7 +24,7 @@ function ListaVeiculos({ veiculos, setVeiculos }) {
             <b>Modelo:</b> {v.modelo} <br />
             <b>Placa:</b> {v.placa}
           </p>
-          <button style={{backgroundColor:"red"}} onClick={() => remover(v.id)}>Excluir</button>
+          <button  onClick={() => remover(v.id)}>Excluir</button>
         </div>
       ))}
     </div>
