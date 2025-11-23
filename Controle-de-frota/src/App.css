@@ -325,3 +325,23 @@ form button:hover {
   transform: scale(1.06);
 }
 
+/* Página de LOGIN*/
+
+.container-login {
+  display: flex;
+  flex-direction: column;
+  max-width: 450px;
+  padding: 25px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+
+  animation: fadeIn 0.5s ease;
+}
+
