@@ -14,7 +14,7 @@ export default function Login({ onLoginSuccess }) {
 
       setTimeout(() => {
         onLoginSuccess(); // <-- chama o App
-      }, 800);
+      }, 500); // delay de acesso
     } else {
       setMsg("Usuário ou senha incorretos!");
     }

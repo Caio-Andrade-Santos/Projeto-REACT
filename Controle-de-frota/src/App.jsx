@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import Login from "./pages/login";
 import AddVeiculo from "./components/AddVeiculo";
 import ListaVeiculos from "./components/ListaVeiculos";
 import EditarVeiculo from "./components/EditarVeiculo";
@@ -25,72 +26,88 @@ export default function App() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>Sistema de Gerenciamento de Frota</h1>
-
-      {/* Menu principal */}
-      {pagina === "menu" && (
-        <div className="menu">
-          <button onClick={() => setPagina("listar")}>📋 Listar Veículos</button>
-          <button onClick={() => setPagina("adicionar")}>➕ Adicionar Veículo</button>
-          <button onClick={() => setPagina("editar")}>✏️ Editar Veículo</button>
-          <button onClick={() => setPagina("excluir")}>❌ Excluir Veículo</button>
-        </div>
-      )}
-
-      {/* Listar Veículos */}
-      {pagina === "listar" && (
+      {pagina === "login" && <Login onLoginSuccess={() => setPagina("menu")} />}
+      {pagina !== "login" && (
         <>
-          <ListaVeiculos veiculos={veiculos} setVeiculos={setVeiculos} />
-          <button className="voltar" onClick={() => setPagina("menu")}>
-            Voltar
-          </button>
-        </>
-      )}
+          <h1>Sistema de Gerenciamento de Frotas</h1>
 
-      {/* Adicionar Veículo */}
-      {pagina === "adicionar" && (
-        <>
-          <AddVeiculo veiculos={veiculos} setVeiculos={setVeiculos} />
-          <button className="voltar" onClick={() => setPagina("menu")}>
-            Voltar
-          </button>
-        </>
-      )}
-
-      {/* Editar Veículo */}
-      {pagina === "editar" && (
-        <>
-          {!editando ? (
+          {/* Menu principal */}
+          {pagina === "menu" && (
             <>
-              <h2>Selecione um veículo para editar:</h2>
-              {veiculos.map((v) => (
-                <div key={v.id} className="lista-item">
-                  {v.modelo} - {v.placa}
-                  <button onClick={() => setEditando(v)}>Editar</button>
-                </div>
-              ))}
+              <div className="menu">
+                <button onClick={() => setPagina("listar")}>
+                  📋 Listar Veículos
+                </button>
+                <button onClick={() => setPagina("adicionar")}>
+                  ➕ Adicionar Veículo
+                </button>
+                <button onClick={() => setPagina("editar")}>
+                  ✏️ Editar Veículo
+                </button>
+                <button onClick={() => setPagina("excluir")}>
+                  ❌ Excluir Veículo
+                </button>
+              </div>
+              {/* Sair/Deslogar */}
+              <button className="sair" onClick={() => setPagina("login")}>
+                Sair
+              </button>
             </>
-          ) : (
-            <EditarVeiculo
-              veiculo={editando}
-              onSalvar={salvarEdicao}
-              onCancelar={() => setEditando(null)}
-            />
           )}
 
-          <button className="voltar" onClick={() => setPagina("menu")}>
-            Voltar
-          </button>
-        </>
-      )}
+          {/* Listar Veículos */}
+          {pagina === "listar" && (
+            <>
+              <ListaVeiculos veiculos={veiculos} setVeiculos={setVeiculos} />
+              <button className="voltar" onClick={() => setPagina("menu")}>
+                Voltar
+              </button>
+            </>
+          )}
+          {/* Adicionar Veículo */}
+          {pagina === "adicionar" && (
+            <>
+              <AddVeiculo veiculos={veiculos} setVeiculos={setVeiculos} />
+              <button className="voltar" onClick={() => setPagina("menu")}>
+                Voltar
+              </button>
+            </>
+          )}
+          {/* Editar Veículo */}
+          {pagina === "editar" && (
+            <>
+              {!editando ? (
+                <>
+                  <h2>Selecione um veículo para editar:</h2>
+                  {veiculos.map((v) => (
+                    <div key={v.id} className="lista-item">
+                      {v.modelo} - {v.placa}
+                      <button onClick={() => setEditando(v)}>Editar</button>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <EditarVeiculo
+                  veiculo={editando}
+                  onSalvar={salvarEdicao}
+                  onCancelar={() => setEditando(null)}
+                />
+              )}
 
-      {/* Excluir */}
-      {pagina === "excluir" && (
-        <>
-          <ListaVeiculos veiculos={veiculos} setVeiculos={setVeiculos} />
-          <button className="voltar" onClick={() => setPagina("menu")}>
-            Voltar
-          </button>
+              <button className="voltar" onClick={() => setPagina("menu")}>
+                Voltar
+              </button>
+            </>
+          )}
+          {/* Excluir */}
+          {pagina === "excluir" && (
+            <>
+              <ListaVeiculos veiculos={veiculos} setVeiculos={setVeiculos} />
+              <button className="voltar" onClick={() => setPagina("menu")}>
+                Voltar
+              </button>
+            </>
+          )}
         </>
       )}
     </div>
