@@ -469,3 +469,12 @@ form button:hover {
     transform: translateX(0);
   }
 }
+.add-erro {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: red;
+  animation: fadeIn 0.4s ease;
+}
+
