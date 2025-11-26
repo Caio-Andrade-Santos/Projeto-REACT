@@ -10,8 +10,8 @@ export default function App() {
   // Estados
   const [menuAberto, setMenuAberto] = useState(false);
   const [veiculos, setVeiculos] = useState([
-    { id: 1, modelo: "Caminhão Baú", placa: "ABC-1234" },
-    { id: 2, modelo: "Carreta", placa: "XYZ-5678" },
+    { id: 1, modelo: "Caminhão Baú", placa: "ABC-1234", tipo: "Carga", ano: 2020 },
+    { id: 2, modelo: "Carreta", placa: "XYZ-5678", tipo: "Carga", ano: 2018 },
   ]);
   const [pagina, setPagina] = useState("menu");
   const [editando, setEditando] = useState(null);
