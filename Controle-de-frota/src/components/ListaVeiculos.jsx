@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import React from "react";
 
 function ListaVeiculos({ veiculos, setVeiculos }) {
   const remover = (id) => {
@@ -22,7 +22,9 @@ function ListaVeiculos({ veiculos, setVeiculos }) {
         >
           <p>
             <b>Modelo:</b> {v.modelo} <br />
-            <b>Placa:</b> {v.placa}
+            <b>Placa:</b> {v.placa} <br />
+            <b>Tipo:</b> {v.tipo} <br />
+            <b>Ano:</b> {v.ano} 
           </p>
           <button  onClick={() => remover(v.id)}>Excluir</button>
         </div>
