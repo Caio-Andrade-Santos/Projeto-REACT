@@ -315,6 +315,22 @@ form button:hover {
     transform: translateY(0);
   }
 }
+.lista-item_ListaVeiculos_Titulo {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 15px;
+  margin: 12px 0;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.2s ease;
+}
+.lista-item_ListaVeiculos_Titulo:hover{
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.1);
+}
 .lista-item_ListaVeiculos {
   background: rgba(255, 255, 255, 0.06);
   padding: 15px;
@@ -477,4 +493,97 @@ form button:hover {
   color: red;
   animation: fadeIn 0.4s ease;
 }
+.animar-msg {
+  animation: msgFade 0.4s ease, msgFadeOut 0.4s ease 2.6s forwards;
+}
 
+@keyframes msgFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes msgFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+/* === Animação do container (colocar *após* todas as rules .add-container) === */
+.animar-container {
+  /* força a animação do container sem depender da ordem de definição anterior */
+  animation: containerFade 0.45s ease !important;
+  /* opcional: melhora suavidade em dispositivos móveis */
+  -webkit-animation: containerFade 0.45s ease !important;
+}
+
+@keyframes containerFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Animação da mensagem (entrada + saída) ===
+   Coloque também ao final para evitar conflito com outras regras */
+.animar-msg {
+  /* dispara a animação de entrada e agend a saída depois de 2.6s */
+  animation: msgFadeIn 0.35s ease forwards, msgFadeOut 0.4s ease 2.6s forwards !important;
+  -webkit-animation: msgFadeIn 0.35s ease forwards, msgFadeOut 0.4s ease 2.6s forwards !important;
+}
+
+@keyframes msgFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes msgFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* === Estilo da mensagem de erro (mantém sua .add-erro) === */
+.add-erro {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: red;
+  /* assegura que a animação aplicada por .animar-msg transmita */
+  will-change: transform, opacity;
+}
+
+/* === Estilo da mensagem de sucesso (mantém sua .add-sucesso) === */
+.add-sucesso {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: #00e676;
+  will-change: transform, opacity;
+}

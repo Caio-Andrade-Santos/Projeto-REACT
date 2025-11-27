@@ -9,7 +9,6 @@ function ListaVeiculos({ veiculos, setVeiculos }) {
 
   return (
     <div>
-      <h2 className="lista-item_ListaVeiculos">📋 Lista de Veículos</h2>
       {veiculos.map((v) => (
         <div className="lista-item_ListaVeiculos"
           key={v.id}

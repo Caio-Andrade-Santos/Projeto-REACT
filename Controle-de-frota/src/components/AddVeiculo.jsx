@@ -6,8 +6,9 @@ function AddVeiculo({ veiculos, setVeiculos }) {
   const [placa, setPlaca] = useState("");
   const [tipo, setTipo] = useState("");
   const [ano, setAno] = useState("");
+
   const [mensagem, setMensagem] = useState("");
-  const [erro, setErro] = useState(false); 
+  const [erro, setErro] = useState(false);
 
   const adicionar = () => {
     if (!modelo || !placa) {
@@ -37,13 +38,13 @@ function AddVeiculo({ veiculos, setVeiculos }) {
   };
 
   return (
-    <div className="add-container">
+    <div className="add-container animar-container">
       <h2 className="add-titulo">Adicionar Veículo</h2>
 
       <input
         type="text"
         className="add-input"
-        placeholder="Modelo"
+        placeholder="Modelo (obrigatório)"
         value={modelo}
         onChange={(e) => setModelo(e.target.value)}
       />
@@ -77,7 +78,9 @@ function AddVeiculo({ veiculos, setVeiculos }) {
       </button>
 
       {mensagem && (
-        <p className={erro ? "add-erro" : "add-sucesso"}>{mensagem}</p>
+        <p className={`${erro ? "add-erro" : "add-sucesso"} animar-msg`}>
+          {mensagem}
+        </p>
       )}
     </div>
   );
