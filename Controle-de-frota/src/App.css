@@ -587,3 +587,28 @@ form button:hover {
   color: #00e676;
   will-change: transform, opacity;
 }
+
+.Pesquisa {
+  display: flex;
+  justify-content: flex-end;
+  width: 30px;
+  padding-right: 20px;
+  margin-top: 10px;
+}
+
+
+.Pesquisa h2 {
+  cursor: pointer;
+  font-size: 28px;
+  transition: 0.3s;
+}
+.Pesquisa h2 {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Hover suave */
+.Pesquisa:hover h2 {
+  transform: scale(1.15);
+  color: black; /* um dourado leve — você pode trocar */
+  cursor: pointer;
+}

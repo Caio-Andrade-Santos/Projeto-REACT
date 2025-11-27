@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Login from "./pages/login";
 import AddVeiculo from "./components/AddVeiculo";
 import ListaVeiculos from "./components/ListaVeiculos";
@@ -17,10 +17,22 @@ export default function App() {
   const [pagina, setPagina] = useState("menu");
   const [editando, setEditando] = useState(null);
 
-  // Estados para busca
+  // Estados de busca
   const [buscaListar, setBuscaListar] = useState("");
   const [buscaEditar, setBuscaEditar] = useState("");
   const [buscaExcluir, setBuscaExcluir] = useState("");
+
+  // Estados para mostrar input da lupa
+  const [mostrarInputListar, setMostrarInputListar] = useState(false);
+  const [mostrarInputEditar, setMostrarInputEditar] = useState(false);
+  const [mostrarInputExcluir, setMostrarInputExcluir] = useState(false);
+
+  // Quando troca de página → reseta lupas
+  useEffect(() => {
+    setMostrarInputListar(false);
+    setMostrarInputEditar(false);
+    setMostrarInputExcluir(false);
+  }, [pagina]);
 
   // Alternar menu
   const toggleMenu = () => setMenuAberto(!menuAberto);
@@ -39,8 +51,7 @@ export default function App() {
   // Usuário do sistema
   const usuario = {
     nome: "Admin",
-    foto:
-      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/..." // encurtado
+    foto: "https://i.imgur.com/6VBx3io.png"
   };
 
   return (
@@ -83,30 +94,51 @@ export default function App() {
                     ❌ Excluir Veículo
                   </button>
                 </div>
-
                 <button className="sair" onClick={() => setPagina("login")}>
                   Sair
                 </button>
               </>
             )}
 
-            {/* Página LISTAR */}
+            {/* ---------------------------------------------------------------- */}
+            {/*                             LISTAR                              */}
+            {/* ---------------------------------------------------------------- */}
             {pagina === "listar" && (
               <>
                 <h2 className="lista-item_ListaVeiculos_Titulo">📋 Lista de Veículos</h2>
 
-                {/* Barra de pesquisa */}
-                <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
-  <input
-    type="text"
-    className="add-input"
-    placeholder="Pesquisar por modelo ou placa  🔍︎"
-    value={buscaEditar}
-    onChange={(e) => setBuscaEditar(e.target.value)}
-    style={{ width: "28%", margin: "15px 20px" }}
-  />
-</div>
+                {/* Lupa (antes do clique) */}
+                {!mostrarInputListar && (
+                  <div
+                    className="Pesquisa"
+                    onClick={() => setMostrarInputListar(true)}
+                    style={{
+                      cursor: "pointer",
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      width: "100%",
+                    }}
+                  >
+                    <h2>🔍︎</h2>
+                  </div>
+                )}
 
+                {/* Input (aparece após clicar) */}
+                {mostrarInputListar && (
+                  <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
+                    <input
+                      type="text"
+                      className="add-input"
+                      placeholder="Pesquisar por modelo ou placa  🔍︎"
+                      value={buscaListar}
+                      onChange={(e) => setBuscaListar(e.target.value)}
+                      style={{ width: "28%", margin: "15px 20px" }}
+                      autoFocus
+                    />
+                  </div>
+                )}
+
+                {/* Lista */}
                 <ListaVeiculos
                   veiculos={veiculos.filter(
                     (v) =>
@@ -122,7 +154,9 @@ export default function App() {
               </>
             )}
 
-            {/* Página ADICIONAR */}
+            {/* ---------------------------------------------------------------- */}
+            {/*                            ADICIONAR                           */}
+            {/* ---------------------------------------------------------------- */}
             {pagina === "adicionar" && (
               <>
                 <AddVeiculo veiculos={veiculos} setVeiculos={setVeiculos} />
@@ -132,23 +166,47 @@ export default function App() {
               </>
             )}
 
-            {/* Página EDITAR */}
+            {/* ---------------------------------------------------------------- */}
+            {/*                              EDITAR                             */}
+            {/* ---------------------------------------------------------------- */}
             {pagina === "editar" && (
               <>
                 {!editando ? (
                   <>
-                   <h2 className="lista-item_ListaVeiculos_Titulo">✏️ Selecionar Veículo para Editar</h2>
-                    {/* Barra de pesquisa */}
-                     <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
-  <input
-     type="text"
-    className="add-input"
-    placeholder="Pesquisar por modelo ou placa  🔍︎"
-    value={buscaEditar}
-    onChange={(e) => setBuscaEditar(e.target.value)}
-    style={{ width: "28%", margin: "15px 20px" }}
-  />
-</div>
+                    <h2 className="lista-item_ListaVeiculos_Titulo">
+                      ✏️ Selecionar Veículo para Editar
+                    </h2>
+
+                    {/* Lupa */}
+                    {!mostrarInputEditar && (
+                      <div
+                        className="Pesquisa"
+                        onClick={() => setMostrarInputEditar(true)}
+                        style={{
+                          cursor: "pointer",
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          width: "100%",
+                        }}
+                      >
+                        <h2>🔍︎</h2>
+                      </div>
+                    )}
+
+                    {/* Input */}
+                    {mostrarInputEditar && (
+                      <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
+                        <input
+                          type="text"
+                          className="add-input"
+                          placeholder="Pesquisar por modelo ou placa  🔍︎"
+                          value={buscaEditar}
+                          onChange={(e) => setBuscaEditar(e.target.value)}
+                          style={{ width: "28%", margin: "15px 20px" }}
+                          autoFocus
+                        />
+                      </div>
+                    )}
 
                     {/* Lista filtrada */}
                     {veiculos
@@ -178,29 +236,53 @@ export default function App() {
               </>
             )}
 
-            {/* Página EXCLUIR */}
+            {/* ---------------------------------------------------------------- */}
+            {/*                             EXCLUIR                             */}
+            {/* ---------------------------------------------------------------- */}
             {pagina === "excluir" && (
               <>
-          <h2 className="lista-item_ListaVeiculos_Titulo">❌ Selecionar Veículo para Excluir</h2>
-         <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
-  <input
-    type="text"
-    className="add-input"
-    placeholder="Pesquisar por modelo ou placa  🔍︎"
-    value={buscaEditar}
-    onChange={(e) => setBuscaEditar(e.target.value)}
-    style={{ width: "28%", margin: "15px 20px" }}
-  />
-</div>
+                <h2 className="lista-item_ListaVeiculos_Titulo">
+                  ❌ Selecionar Veículo para Excluir
+                </h2>
 
+                {/* Lupa */}
+                {!mostrarInputExcluir && (
+                  <div
+                    className="Pesquisa"
+                    onClick={() => setMostrarInputExcluir(true)}
+                    style={{
+                      cursor: "pointer",
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      width: "100%",
+                    }}
+                  >
+                    <h2>🔍︎</h2>
+                  </div>
+                )}
 
+                {/* Input */}
+                {mostrarInputExcluir && (
+                  <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
+                    <input
+                      type="text"
+                      className="add-input"
+                      placeholder="Pesquisar por modelo ou placa  🔍︎"
+                      value={buscaExcluir}
+                      onChange={(e) => setBuscaExcluir(e.target.value)}
+                      style={{ width: "28%", margin: "15px 20px" }}
+                      autoFocus
+                    />
+                  </div>
+                )}
+
+                {/* Lista filtrada */}
                 <ListaVeiculos
                   veiculos={veiculos.filter(
                     (v) =>
                       v.modelo.toLowerCase().includes(buscaExcluir.toLowerCase()) ||
                       v.placa.toLowerCase().includes(buscaExcluir.toLowerCase())
-                  )
-                }
+                  )}
                   setVeiculos={setVeiculos}
                 />
 
