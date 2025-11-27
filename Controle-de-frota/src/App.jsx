@@ -41,6 +41,21 @@ function App() {
           </button>
         </div>
       )}
+<<<<<<< Updated upstream
+=======
+
+      {/* Loguin */}
+      {pagina === "login" && (
+    <div className="login-wrapper">
+      <Login onLoginSuccess={() => setPagina("menu")} />
+    </div>
+  )}
+
+      <div className="app-container">        
+        {pagina !== "login" && (
+          <>
+            <h1>Sistema de Gerenciamento de Frota</h1>
+>>>>>>> Stashed changes
 
       {pagina === "listar" && (
         <>
