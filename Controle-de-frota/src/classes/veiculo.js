@@ -3,7 +3,7 @@ class Veiculo {
     modelo = "Modelo não informado",
     placa = "XXX-0000",
     tipo = "Carga",
-    ano = 2024
+    ano = 2025
   ) {
     this.id = Date.now();
     this.modelo = modelo;
