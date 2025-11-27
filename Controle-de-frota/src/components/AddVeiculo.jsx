@@ -1,6 +1,21 @@
 import { useState } from "react";
 import Veiculo from "../classes/veiculo";
 
+// 🔍 Função para validar placa padrão antigo e Mercosul
+function validarPlaca(placa) {
+  if (!placa) return false;
+
+  const p = placa.toUpperCase().trim();
+
+  // Antiga: ABC-1234 ou ABC1234
+  const regexAntiga = /^[A-Z]{3}-?\d{4}$/;
+
+  // Mercosul: ABC1D23
+  const regexMercosul = /^[A-Z]{3}\d[A-Z]\d{2}$/;
+
+  return regexAntiga.test(p) || regexMercosul.test(p);
+}
+
 function AddVeiculo({ veiculos, setVeiculos }) {
   const [modelo, setModelo] = useState("");
   const [placa, setPlaca] = useState("");
@@ -18,6 +33,15 @@ function AddVeiculo({ veiculos, setVeiculos }) {
       return;
     }
 
+    // ❌ PLACA INVÁLIDA → BLOQUEIA!
+    if (!validarPlaca(placa)) {
+      setErro(true);
+      setMensagem("Placa inválida! Use o padrão ABC-1234 ou ABC1D23.");
+      setTimeout(() => setMensagem(""), 3000);
+      return;
+    }
+
+    // Criar veículo APENAS se estiver tudo válido
     const novo = new Veiculo(
       modelo || undefined,
       placa || undefined,
@@ -54,7 +78,7 @@ function AddVeiculo({ veiculos, setVeiculos }) {
         className="add-input"
         placeholder="Placa (obrigatório)"
         value={placa}
-        onChange={(e) => setPlaca(e.target.value)}
+        onChange={(e) => setPlaca(e.target.value.toUpperCase())}
       />
 
       <input
