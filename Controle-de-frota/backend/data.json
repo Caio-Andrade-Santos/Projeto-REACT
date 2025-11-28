@@ -1,3 +1,11 @@
 {
-  "registros": []
+  "registros": [
+    {
+      "id": 1,
+      "modelo": "Uno",
+      "placa": "UNO-2000",
+      "tipo": "Carro",
+      "ano": 2000
+    }
+  ]
 }

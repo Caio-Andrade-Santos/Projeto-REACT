@@ -1,59 +1,46 @@
 import { useState } from "react";
-import Veiculo from "../classes/veiculo";
 
-// 🔍 Função para validar placa padrão antigo e Mercosul
-function validarPlaca(placa) {
-  if (!placa) return false;
-
-  const p = placa.toUpperCase().trim();
-
-  // Antiga: ABC-1234 ou ABC1234
-  const regexAntiga = /^[A-Z]{3}-?\d{4}$/;
-
-  // Mercosul: ABC1D23
-  const regexMercosul = /^[A-Z]{3}\d[A-Z]\d{2}$/;
-
-  return regexAntiga.test(p) || regexMercosul.test(p);
-}
-
-function AddVeiculo({ veiculos, setVeiculos }) {
+function AddVeiculo({ onAdicionar, mensagem, erro }) {
   const [modelo, setModelo] = useState("");
   const [placa, setPlaca] = useState("");
   const [tipo, setTipo] = useState("");
   const [ano, setAno] = useState("");
 
-  const [mensagem, setMensagem] = useState("");
-  const [erro, setErro] = useState(false);
+  // Função para formatar placa automaticamente
+  const formatarPlaca = (valor) => {
+    let p = valor.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (p.length > 3) p = p.slice(0, 3) + "-" + p.slice(3, 7);
+    return p;
+  };
 
   const adicionar = () => {
-    if (!modelo || !placa) {
-      setErro(true);
-      setMensagem("Preencha todos os campos obrigatórios!");
-      setTimeout(() => setMensagem(""), 3000);
+    // Trim e validação básica
+    if (!modelo.trim() || !placa.trim() || !tipo.trim() || !ano) {
+      onAdicionar(null, true, "Preencha todos os campos obrigatórios!");
       return;
     }
 
-    // ❌ PLACA INVÁLIDA → BLOQUEIA!
-    if (!validarPlaca(placa)) {
-      setErro(true);
-      setMensagem("Placa inválida! Use o padrão ABC-1234 ou ABC1D23.");
-      setTimeout(() => setMensagem(""), 3000);
+    const anoNum = parseInt(ano);
+    if (isNaN(anoNum) || anoNum < 1900 || anoNum > new Date().getFullYear()) {
+      onAdicionar(null, true, "Ano inválido!");
       return;
     }
 
-    // Criar veículo APENAS se estiver tudo válido
-    const novo = new Veiculo(
-      modelo || undefined,
-      placa || undefined,
-      tipo || undefined,
-      ano || undefined
-    );
+    const placaFormatada = formatarPlaca(placa);
+    const placaRegex = /^[A-Z]{3}-\d{4}$/;
+    if (!placaRegex.test(placaFormatada)) {
+      onAdicionar(null, true, "Placa inválida! Use o formato ABC-1234.");
+      return;
+    }
 
-    setVeiculos([...veiculos, novo]);
+    const novoVeiculo = {
+      modelo: modelo.trim(),
+      placa: placaFormatada,
+      tipo: tipo.trim(),
+      ano: anoNum,
+    };
 
-    setErro(false);
-    setMensagem("Veículo adicionado com sucesso!");
-    setTimeout(() => setMensagem(""), 3000);
+    onAdicionar(novoVeiculo);
 
     setModelo("");
     setPlaca("");
@@ -68,19 +55,17 @@ function AddVeiculo({ veiculos, setVeiculos }) {
       <input
         type="text"
         className="add-input"
-        placeholder="Modelo (obrigatório)"
+        placeholder="Modelo"
         value={modelo}
         onChange={(e) => setModelo(e.target.value)}
       />
-
       <input
         type="text"
         className="add-input"
-        placeholder="Placa (obrigatório)"
+        placeholder="Placa (ABC-1234)"
         value={placa}
-        onChange={(e) => setPlaca(e.target.value.toUpperCase())}
+        onChange={(e) => setPlaca(formatarPlaca(e.target.value))}
       />
-
       <input
         type="text"
         className="add-input"
@@ -88,7 +73,6 @@ function AddVeiculo({ veiculos, setVeiculos }) {
         value={tipo}
         onChange={(e) => setTipo(e.target.value)}
       />
-
       <input
         type="number"
         className="add-input"
