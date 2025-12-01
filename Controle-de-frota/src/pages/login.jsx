@@ -23,7 +23,7 @@ export default function Login({ onLoginSuccess }) {
   return (
     <div className="container-login">
       <form className="loginForm" onSubmit={handleLogin}>
-        <h2>Login</h2>
+        <h2>Acesse o sistema</h2>
 
         <input
           type="text"

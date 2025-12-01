@@ -6,6 +6,13 @@
       "placa": "UNO-2000",
       "tipo": "Carro",
       "ano": 2000
+    },
+    {
+      "id": 2,
+      "modelo": "AHHH",
+      "placa": "ABC-1234",
+      "tipo": "GRWGR",
+      "ano": 2025
     }
   ]
 }
