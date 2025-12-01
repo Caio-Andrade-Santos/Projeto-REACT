@@ -9,6 +9,7 @@ export default function Login({ onLoginSuccess }) {
   function handleLogin(e) {
     e.preventDefault();
 
+    // Validação simples de usuário e senha fixos
     if (user === "admin" && password === "1234") {
       setMsg("Login realizado com sucesso!");
 

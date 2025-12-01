@@ -49,7 +49,7 @@ app.post("/add", (req, res) => {
   placa = (placa ?? "").toString().trim();
   tipo = (tipo ?? "").toString().trim();
 
-  // Validação inicial
+  // Validação dos campos inicial
   if (
     !modelo ||
     !placa ||
@@ -65,10 +65,12 @@ app.post("/add", (req, res) => {
 
   ano = parseInt(ano);
 
+  // Verifica se o ano é um número válido
   if (isNaN(ano)) {
     return res.status(400).json({ mensagem: "Ano inválido." });
   }
 
+  // Valida o formato da placa
   if (!validarPlaca(placa)) {
     return res
       .status(400)
@@ -94,6 +96,7 @@ app.put("/editar/:id", (req, res) => {
   placa = (placa ?? "").toString().trim();
   tipo = (tipo ?? "").toString().trim();
 
+  // Validação dos campos obrigatórios
   if (
     !modelo ||
     !placa ||
@@ -107,12 +110,13 @@ app.put("/editar/:id", (req, res) => {
       .json({ mensagem: "Preencha todos os campos corretamente!" });
   }
 
+  // Converte ano para número e verifica se é válido
   ano = parseInt(ano);
-
   if (isNaN(ano)) {
     return res.status(400).json({ mensagem: "Ano inválido." });
   }
 
+  // Valida o formato da placa
   if (!validarPlaca(placa)) {
     return res
       .status(400)
@@ -122,6 +126,7 @@ app.put("/editar/:id", (req, res) => {
   const dados = carregarDados();
   const index = dados.registros.findIndex((v) => v.id === id);
 
+  // Se encontrou o veículo, atualiza os dados
   if (index !== -1) {
     dados.registros[index] = { id, modelo, placa, tipo, ano };
     salvarDados(dados);
@@ -130,6 +135,7 @@ app.put("/editar/:id", (req, res) => {
       veiculo: dados.registros[index],
     });
   } else {
+    // Caso o veículo não seja encontrado, retorna erro 404
     return res.status(404).json({ mensagem: "Veículo não encontrado." });
   }
 });
