@@ -6,7 +6,6 @@ function AddVeiculo({ onAdicionar, mensagem, erro }) {
   const [tipo, setTipo] = useState("");
   const [ano, setAno] = useState("");
 
-  // Função para formatar placa automaticamente
   const formatarPlaca = (valor) => {
     let p = valor.toUpperCase().replace(/[^A-Z0-9]/g, "");
     if (p.length > 3) p = p.slice(0, 3) + "-" + p.slice(3, 7);
@@ -14,22 +13,21 @@ function AddVeiculo({ onAdicionar, mensagem, erro }) {
   };
 
   const adicionar = () => {
-    // Trim e validação básica
     if (!modelo.trim() || !placa.trim() || !tipo.trim() || !ano) {
-      onAdicionar(null, true, "Preencha todos os campos obrigatórios!");
+      onAdicionar(null, "Preencha todos os campos obrigatórios!", true);
       return;
     }
 
     const anoNum = parseInt(ano);
     if (isNaN(anoNum) || anoNum < 1900 || anoNum > new Date().getFullYear()) {
-      onAdicionar(null, true, "Ano inválido!");
+      onAdicionar(null, "Ano inválido!", true);
       return;
     }
 
     const placaFormatada = formatarPlaca(placa);
     const placaRegex = /^[A-Z]{3}-\d{4}$/;
     if (!placaRegex.test(placaFormatada)) {
-      onAdicionar(null, true, "Placa inválida! Use o formato ABC-1234.");
+      onAdicionar(null, "Placa inválida! Use o formato ABC-1234.", true);
       return;
     }
 
@@ -51,7 +49,6 @@ function AddVeiculo({ onAdicionar, mensagem, erro }) {
   return (
     <div className="add-container animar-container">
       <h2 className="add-titulo">Adicionar Veículo</h2>
-
       <input
         type="text"
         className="add-input"
@@ -80,7 +77,6 @@ function AddVeiculo({ onAdicionar, mensagem, erro }) {
         value={ano}
         onChange={(e) => setAno(e.target.value)}
       />
-
       <button className="add-botao" onClick={adicionar}>
         Adicionar
       </button>

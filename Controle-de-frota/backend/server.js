@@ -44,20 +44,31 @@ function validarPlaca(placa) {
 app.post("/add", (req, res) => {
   let { modelo, placa, tipo, ano } = req.body;
 
-  // Limpa espaços
-  modelo = modelo?.trim();
-  placa = placa?.trim();
-  tipo = tipo?.trim();
-  ano = parseInt(ano);
+  // Evita crash caso venha número no modelo/tipo/placa
+  modelo = (modelo ?? "").toString().trim();
+  placa = (placa ?? "").toString().trim();
+  tipo = (tipo ?? "").toString().trim();
 
-  // Valida campos
-  if (!modelo || !placa || !tipo || !ano) {
+  // Validação inicial
+  if (
+    !modelo ||
+    !placa ||
+    !tipo ||
+    ano === "" ||
+    ano === undefined ||
+    ano === null
+  ) {
     return res
       .status(400)
       .json({ mensagem: "Preencha todos os campos corretamente!" });
   }
 
-  // Valida placa
+  ano = parseInt(ano);
+
+  if (isNaN(ano)) {
+    return res.status(400).json({ mensagem: "Ano inválido." });
+  }
+
   if (!validarPlaca(placa)) {
     return res
       .status(400)
@@ -79,15 +90,27 @@ app.put("/editar/:id", (req, res) => {
   const id = parseInt(req.params.id);
   let { modelo, placa, tipo, ano } = req.body;
 
-  modelo = modelo?.trim();
-  placa = placa?.trim();
-  tipo = tipo?.trim();
-  ano = parseInt(ano);
+  modelo = (modelo ?? "").toString().trim();
+  placa = (placa ?? "").toString().trim();
+  tipo = (tipo ?? "").toString().trim();
 
-  if (!modelo || !placa || !tipo || !ano) {
+  if (
+    !modelo ||
+    !placa ||
+    !tipo ||
+    ano === "" ||
+    ano === undefined ||
+    ano === null
+  ) {
     return res
       .status(400)
       .json({ mensagem: "Preencha todos os campos corretamente!" });
+  }
+
+  ano = parseInt(ano);
+
+  if (isNaN(ano)) {
+    return res.status(400).json({ mensagem: "Ano inválido." });
   }
 
   if (!validarPlaca(placa)) {

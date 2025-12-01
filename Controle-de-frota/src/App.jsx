@@ -12,7 +12,7 @@ export default function App() {
   const [veiculos, setVeiculos] = useState([]);
   const [pagina, setPagina] = useState("menu");
   const [editando, setEditando] = useState(null);
-  const [mensagem, setMensagem] = useState(""); // nova mensagem global
+  const [mensagem, setMensagem] = useState("");
   const [erro, setErro] = useState(false);
 
   const [buscaListar, setBuscaListar] = useState("");
@@ -21,10 +21,7 @@ export default function App() {
 
   const toggleMenu = () => setMenuAberto(!menuAberto);
 
-  const usuario = {
-    nome: "Admin",
-    foto: iconUser,
-  };
+  const usuario = { nome: "Admin", foto: iconUser };
 
   // ---------------------- LISTAR VEÍCULOS ----------------------
   useEffect(() => {
@@ -35,38 +32,52 @@ export default function App() {
   }, []);
 
   // ---------------------- FUNÇÕES BACKEND ----------------------
-  const adicionarVeiculo = async (novoVeiculo) => {
+  const adicionarVeiculo = async (veiculo, msg, isErro) => {
+    if (!veiculo) {
+      setMensagem(msg);
+      setErro(isErro);
+      setTimeout(() => setMensagem(""), 3000);
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:3001/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(novoVeiculo),
+        body: JSON.stringify(veiculo),
       });
       const data = await response.json();
 
       if (response.ok) {
-        setVeiculos([...veiculos, { ...novoVeiculo, id: data.veiculo.id }]);
-        setErro(false);
+        setVeiculos([...veiculos, { ...veiculo, id: data.veiculo.id }]);
         setMensagem("Veículo adicionado com sucesso!");
+        setErro(false);
 
         setTimeout(() => {
           setMensagem("");
-          setPagina("adicionar");
+          setPagina("menu");
         }, 2000);
       } else {
-        setErro(true);
         setMensagem(data.mensagem || "Erro ao adicionar veículo.");
+        setErro(true);
         setTimeout(() => setMensagem(""), 3000);
       }
     } catch (err) {
       console.error("Erro ao adicionar veículo:", err);
-      setErro(true);
       setMensagem("Erro de conexão com o servidor.");
+      setErro(true);
       setTimeout(() => setMensagem(""), 3000);
     }
   };
 
-  const salvarEdicao = async (veiculoAtualizado) => {
+  const salvarEdicao = async (veiculoAtualizado, msg, isErro) => {
+    if (!veiculoAtualizado) {
+      setMensagem(msg);
+      setErro(isErro);
+      setTimeout(() => setMensagem(""), 3000);
+      return;
+    }
+
     try {
       const response = await fetch(
         `http://localhost:3001/editar/${veiculoAtualizado.id}`,
@@ -84,23 +95,23 @@ export default function App() {
             v.id === veiculoAtualizado.id ? veiculoAtualizado : v
           )
         );
-        setErro(false);
         setMensagem("Veículo atualizado com sucesso!");
+        setErro(false);
 
         setTimeout(() => {
           setMensagem("");
           setEditando(null);
-          setPagina("editar");
+          setPagina("menu");
         }, 2000);
       } else {
-        setErro(true);
         setMensagem(data.mensagem || "Erro ao atualizar veículo.");
+        setErro(true);
         setTimeout(() => setMensagem(""), 3000);
       }
     } catch (err) {
       console.error("Erro ao editar veículo:", err);
-      setErro(true);
       setMensagem("Erro de conexão com o servidor.");
+      setErro(true);
       setTimeout(() => setMensagem(""), 3000);
     }
   };
@@ -116,19 +127,18 @@ export default function App() {
 
       if (response.ok) {
         setVeiculos(veiculos.filter((v) => v.id !== id));
-        setErro(false);
         setMensagem("Veículo removido com sucesso!");
-
+        setErro(false);
         setTimeout(() => setMensagem(""), 2000);
       } else {
-        setErro(true);
         setMensagem(data.mensagem || "Erro ao excluir veículo.");
+        setErro(true);
         setTimeout(() => setMensagem(""), 3000);
       }
     } catch (err) {
       console.error("Erro ao excluir veículo:", err);
-      setErro(true);
       setMensagem("Erro de conexão com o servidor.");
+      setErro(true);
       setTimeout(() => setMensagem(""), 3000);
     }
   };
@@ -161,25 +171,20 @@ export default function App() {
             <h1>Sistema de Gerenciamento de Frota</h1>
 
             {pagina === "menu" && (
-              <>
-                <div className="menu">
-                  <button onClick={() => setPagina("listar")}>
-                    📋 Listar Veículos
-                  </button>
-                  <button onClick={() => setPagina("adicionar")}>
-                    ➕ Adicionar Veículo
-                  </button>
-                  <button onClick={() => setPagina("editar")}>
-                    ✏️ Editar Veículo
-                  </button>
-                  <button onClick={() => setPagina("excluir")}>
-                    ❌ Excluir Veículo
-                  </button>
-                </div>
-                <button className="sair" onClick={() => setPagina("login")}>
-                  Sair
+              <div className="menu">
+                <button onClick={() => setPagina("listar")}>
+                  📋 Listar Veículos
                 </button>
-              </>
+                <button onClick={() => setPagina("adicionar")}>
+                  ➕ Adicionar Veículo
+                </button>
+                <button onClick={() => setPagina("editar")}>
+                  ✏️ Editar Veículo
+                </button>
+                <button onClick={() => setPagina("excluir")}>
+                  ❌ Excluir Veículo
+                </button>
+              </div>
             )}
 
             {pagina === "listar" && (
@@ -211,7 +216,11 @@ export default function App() {
 
             {pagina === "adicionar" && (
               <>
-                <AddVeiculo onAdicionar={adicionarVeiculo} />
+                <AddVeiculo
+                  onAdicionar={adicionarVeiculo}
+                  mensagem={mensagem}
+                  erro={erro}
+                />
                 <button className="voltar" onClick={() => setPagina("menu")}>
                   Voltar
                 </button>
@@ -246,17 +255,22 @@ export default function App() {
                           <button onClick={() => setEditando(v)}>Editar</button>
                         </div>
                       ))}
+                    <button
+                      className="voltar"
+                      onClick={() => setPagina("menu")}
+                    >
+                      Voltar
+                    </button>
                   </>
                 ) : (
                   <EditarVeiculo
                     veiculo={editando}
                     onSalvar={salvarEdicao}
                     onCancelar={() => setEditando(null)}
+                    mensagem={mensagem}
+                    erro={erro}
                   />
                 )}
-                <button className="voltar" onClick={() => setPagina("menu")}>
-                  Voltar
-                </button>
               </>
             )}
 
